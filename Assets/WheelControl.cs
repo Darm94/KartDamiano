@@ -13,4 +13,6 @@ public class WheelControl : MonoBehaviour
     {
         
     }
+
+    public object WheelCollider { get; set; }
 }
