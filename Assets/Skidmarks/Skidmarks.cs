@@ -64,9 +64,13 @@ public class Skidmarks : MonoBehaviour {
 
 		mf = GetComponent<MeshFilter>();
 		mr = GetComponent<MeshRenderer>();
-		if (mr == null) {
+		/*if (mr == null) {
 			mr = gameObject.AddComponent<MeshRenderer>();
-		}
+		}*/
+		// Disable skidmarksrenderer  : not working well
+		mr = GetComponent<MeshRenderer>();
+		if (mr != null)
+			mr.enabled = false;
 
 		marksMesh = new Mesh();
 		marksMesh.MarkDynamic();
@@ -82,10 +86,10 @@ public class Skidmarks : MonoBehaviour {
 		uvs = new Vector2[MAX_MARKS * 4];
 		triangles = new int[MAX_MARKS * 6];
 
-		mr.shadowCastingMode = ShadowCastingMode.Off;
+		/*mr.shadowCastingMode = ShadowCastingMode.Off;
 		mr.receiveShadows = false;
 		mr.material = skidmarksMaterial;
-		mr.lightProbeUsage = LightProbeUsage.Off;
+		mr.lightProbeUsage = LightProbeUsage.Off;*/
 	}
 
 	protected void LateUpdate() {
@@ -116,7 +120,18 @@ public class Skidmarks : MonoBehaviour {
 
 		black.a = (byte)(opacity * 255);
 
-		skidAudioSource.volume = opacity;
+		if (opacity > 0f)
+		{
+			skidAudioSource.volume = opacity;
+
+			if (!skidAudioSource.isPlaying)
+				skidAudioSource.Play();
+		}
+		else
+		{
+			if (skidAudioSource.isPlaying)
+				skidAudioSource.Stop();
+		}
 		
 		return AddSkidMark(pos, normal, black, lastIndex);
 	}

@@ -128,4 +128,9 @@ public class KartController : MonoBehaviour
             }
         }
     }
+    public void IncreaseMaxSpeed()
+    {
+        maxSpeed += 1f;
+    }
 }
+
