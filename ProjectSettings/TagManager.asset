@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - PowerUp
+  - Car
   layers:
   - Default
   - TransparentFX
